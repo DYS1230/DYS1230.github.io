@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="数据分析平台-实践系列一 项目创建于2018年1月底，到现在已经接近半年，在此写下半年来项目的实践过程以及自己对前端的学习与体悟。  技术选型框架： React 路由： React-Router 4 状态管理： Redux UI组件库： Ant Design 搭建工程因为平台的前端技术选型，因此挑选了React为技术框架。并使用create-react-app快速搭建工程。create-react">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据分析平台-实践系列一">
+<meta property="og:url" content="http://yoursite.com/2018/06/06/数据分析平台-实践系列一/index.html">
+<meta property="og:site_name" content="DYS Blog">
+<meta property="og:description" content="数据分析平台-实践系列一 项目创建于2018年1月底，到现在已经接近半年，在此写下半年来项目的实践过程以及自己对前端的学习与体悟。  技术选型框架： React 路由： React-Router 4 状态管理： Redux UI组件库： Ant Design 搭建工程因为平台的前端技术选型，因此挑选了React为技术框架。并使用create-react-app快速搭建工程。create-react">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/06/06/数据分析平台-实践系列一/v2-2c3fd6ac3a6c6cebe9901ab2580166c7_hd.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/06/数据分析平台-实践系列一/mock.png">
+<meta property="og:updated_time" content="2018-06-06T09:15:24.417Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据分析平台-实践系列一">
+<meta name="twitter:description" content="数据分析平台-实践系列一 项目创建于2018年1月底，到现在已经接近半年，在此写下半年来项目的实践过程以及自己对前端的学习与体悟。  技术选型框架： React 路由： React-Router 4 状态管理： Redux UI组件库： Ant Design 搭建工程因为平台的前端技术选型，因此挑选了React为技术框架。并使用create-react-app快速搭建工程。create-react">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/06/数据分析平台-实践系列一/v2-2c3fd6ac3a6c6cebe9901ab2580166c7_hd.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/06/数据分析平台-实践系列一/"/>
+
+
+
+
+
+  <title>数据分析平台-实践系列一 | DYS Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DYS Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/06/数据分析平台-实践系列一/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DYS">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DYS Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据分析平台-实践系列一</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-06T17:05:52+08:00">
+                2018-06-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="数据分析平台-实践系列一"><a href="#数据分析平台-实践系列一" class="headerlink" title="数据分析平台-实践系列一"></a>数据分析平台-实践系列一</h3><blockquote>
+<p>项目创建于2018年1月底，到现在已经接近半年，在此写下半年来项目的实践过程以及自己对前端的学习与体悟。</p>
+</blockquote>
+<h4 id="技术选型"><a href="#技术选型" class="headerlink" title="技术选型"></a>技术选型</h4><p>框架： <code>React</code></p>
+<p>路由： <code>React-Router 4</code></p>
+<p>状态管理： <code>Redux</code></p>
+<p>UI组件库： <code>Ant Design</code></p>
+<h4 id="搭建工程"><a href="#搭建工程" class="headerlink" title="搭建工程"></a>搭建工程</h4><p>因为平台的前端技术选型，因此挑选了<code>React</code>为技术框架。并使用<code>create-react-app</code>快速搭建工程。<code>create-react-app</code>为fackbook官方出品的快速搭建<code>React</code>工程的命令行工具，可以减少写各种配置的过程，似于<code>vue</code>的<code>vue-cli</code>和<code>angular</code>的<code>angular-cli</code>。</p>
+<p>而在使用<code>create-react-app</code>，需要使用<code>eject</code>暴露所有配置项，好自定义个人的<code>Webpack</code>配置。</p>
+<p>首先我们并不打算将<code>React</code>让<code>Webpack</code>打包，而使用第三方的CDN，直接在<code>HTML</code>文件以<code>script</code>标签引入。在此我们选用用友的<a href="http://www.tinper.org/dist/cdn/index.html" target="_blank" rel="noopener">tinper公共静态资源库</a>。</p>
+<p>改动<code>Webpack</code>配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">externals: &#123;</span><br><span class="line">  &apos;react&apos;: &apos;React&apos;,</span><br><span class="line">  &apos;react-dom&apos;: &apos;ReactDOM&apos;,</span><br><span class="line">  &apos;react-router-dom&apos;: &apos;ReactRouterDOM&apos;,</span><br><span class="line">  &apos;redux&apos;: &apos;Redux&apos;,</span><br><span class="line">  &apos;react-redux&apos;: &apos;ReactRedux&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而若引入第三方CDN，需要分引入为生产环境还是开发环境的代码。<br>如在生产环境下要引入<code>//design.yonyoucloud.com/static/react/16.0.0/umd/react.production.min.js</code><br>而在开发环境引入<code>//design.yonyoucloud.com/static/react/16.2.0/umd/react.development.js</code>。</p>
+<p>选用<code>ejs-compiled-loader</code>，这样另我们可以在<code>HTML</code>文件使用<code>ejs</code>模板引擎。</p>
+<p>继续改动<code>Webpack</code>配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">new HtmlWebpackPlugin(&#123;</span><br><span class="line">  inject: true,</span><br><span class="line">  template: `!!ejs-compiled-loader!$&#123;paths.appHtml&#125;`,</span><br><span class="line">&#125;),</span><br></pre></td></tr></table></figure>
+<p>在<code>HTML</code>使用模板引擎</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%</span> <span class="attr">if</span> (<span class="attr">process.env.NODE_ENV</span> === <span class="string">'production'</span>) &#123; %&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"//design.yonyoucloud.com/static/react/16.0.0/umd/react.production.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"//design.yonyoucloud.com/static/react-dom/16.0.0/umd/react-dom.production.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%</span> &#125; %&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%</span> <span class="attr">if</span> (<span class="attr">process.env.NODE_ENV</span> === <span class="string">'development'</span>) &#123; %&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"//design.yonyoucloud.com/static/react/16.2.0/umd/react.development.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"//design.yonyoucloud.com/static/react-dom/16.2.0/umd/react-dom.development.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%</span> &#125; %&gt;</span></span><br></pre></td></tr></table></figure>
+<p>最后，设置<code>Webpack</code>的别名，让后续引用的地方减少路径的复杂度。</p>
+<pre><code>alias: {
+  &apos;root&apos;: path.resolve(__dirname, &apos;../src&apos;),
+  &apos;@&apos;: path.resolve(__dirname, &apos;..&apos;)
+},
+</code></pre><p>如在<code>src</code>文件夹下有两个文件夹<code>a</code>和<code>b</code>，倘若<code>b</code>下的<code>m.js</code>需要引用<code>a</code>下的<code>n.js</code>，需要<code>import X from ‘../a/n.js’</code>，设置别名后可写为<code>root/a/n.js</code>。</p>
+<h4 id="前后端分离"><a href="#前后端分离" class="headerlink" title="前后端分离"></a>前后端分离</h4><p><img src="/2018/06/06/数据分析平台-实践系列一/v2-2c3fd6ac3a6c6cebe9901ab2580166c7_hd.jpg" alt="前后端分离"></p>
+<p>在知乎上面找了张图片，前后端分离，简单的说，就是前端负责页面交互，显示后台提供的数据，而后端负责数据的处理，提供给前台数据。</p>
+<p>可以看出前后端是有很强的耦合关系，后端需要依赖前端请求，前端需要依赖后端响应。不过此处后端是可以轻松模拟前端请求，如<code>POSTMAN</code>等。剩下的解决要点为如何给前端模拟数据。因此，我们在设计接口约定数据后构建另一个简单的<code>Server</code>，这个<code>Server</code>会简单的响应前端请求，根据约定返回模拟的数据。我们将这个<code>Server</code>成为<code>Mock Server</code>。</p>
+<p>其中<code>Mock Server</code>可分成本地及远程。</p>
+<p>本地的<code>Mock Server</code>需要每个前端在自己电脑上部署服务器，且若后台改动API，后台无法同步维护<code>Mock Server</code>与<code>Real Server</code>。</p>
+<p>因此打算建立远程的<code>Mock Server</code>(其实还有个关键是我使用用友配的电脑开发，在本地部署的话电脑配置。。。)不过此步骤我们也可以省略了，用友的大前端技术团队提供了<a href="https://mock.yonyoucloud.com" target="_blank" rel="noopener">Mock平台</a>。<img src="/2018/06/06/数据分析平台-实践系列一/mock.png" alt="mock"></p>
+<p>他的功能十分齐全，具备权限管理，Mock Server，数据导入等等的功能。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">DYS</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/DYS1230" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:dys_jingdai@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据分析平台-实践系列一"><span class="nav-number">1.</span> <span class="nav-text">数据分析平台-实践系列一</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#技术选型"><span class="nav-number">1.1.</span> <span class="nav-text">技术选型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搭建工程"><span class="nav-number">1.2.</span> <span class="nav-text">搭建工程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#前后端分离"><span class="nav-number">1.3.</span> <span class="nav-text">前后端分离</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DYS</span>
+
+  
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
