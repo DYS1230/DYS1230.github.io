@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="数据分析平台-前端实践(三) 本章讲解项目目录结构的搭建，路由模式选择和代码分割  目录结构目前前端项目结构的划分如图  由于项目并非十分庞大，因此按照功能划分。（涉及Redux的文章会后期写） 12345678910111213141516171819202122232425262728293031323334353637383940414243| -- api  # 后台接口| -- comp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据分析平台-实践系列三">
+<meta property="og:url" content="http://yoursite.com/2018/06/19/数据分析平台-实践系列三/index.html">
+<meta property="og:site_name" content="DYS Blog">
+<meta property="og:description" content="数据分析平台-前端实践(三) 本章讲解项目目录结构的搭建，路由模式选择和代码分割  目录结构目前前端项目结构的划分如图  由于项目并非十分庞大，因此按照功能划分。（涉及Redux的文章会后期写） 12345678910111213141516171819202122232425262728293031323334353637383940414243| -- api  # 后台接口| -- comp">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/06/19/数据分析平台-实践系列三/2018-06-18%2022:22:17屏幕截图.png">
+<meta property="og:updated_time" content="2018-06-19T01:52:28.179Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据分析平台-实践系列三">
+<meta name="twitter:description" content="数据分析平台-前端实践(三) 本章讲解项目目录结构的搭建，路由模式选择和代码分割  目录结构目前前端项目结构的划分如图  由于项目并非十分庞大，因此按照功能划分。（涉及Redux的文章会后期写） 12345678910111213141516171819202122232425262728293031323334353637383940414243| -- api  # 后台接口| -- comp">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/19/数据分析平台-实践系列三/2018-06-18%2022:22:17屏幕截图.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/19/数据分析平台-实践系列三/"/>
+
+
+
+
+
+  <title>数据分析平台-实践系列三 | DYS Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DYS Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/19/数据分析平台-实践系列三/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DYS">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DYS Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据分析平台-实践系列三</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-19T09:51:14+08:00">
+                2018-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="数据分析平台-前端实践-三"><a href="#数据分析平台-前端实践-三" class="headerlink" title="数据分析平台-前端实践(三)"></a>数据分析平台-前端实践(三)</h3><blockquote>
+<p>本章讲解项目目录结构的搭建，路由模式选择和代码分割</p>
+</blockquote>
+<h4 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h4><p>目前前端项目结构的划分如图</p>
+<p><img src="/2018/06/19/数据分析平台-实践系列三/2018-06-18 22:22:17屏幕截图.png" alt="2018-06-18 22:22:17屏幕截图"></p>
+<p>由于项目并非十分庞大，因此按照功能划分。（涉及<code>Redux</code>的文章会后期写）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">| -- api  # 后台接口</span><br><span class="line">| -- components  # 公共组件</span><br><span class="line">    | -- commonA</span><br><span class="line">        | -- index.js</span><br><span class="line">        | -- index.less</span><br><span class="line">| -- config  # 项目配置项</span><br><span class="line">    | -- constant.js # 项目常量</span><br><span class="line">| -- font # 字体图标文件</span><br><span class="line">| -- redux</span><br><span class="line">    | -- store.js</span><br><span class="line">    | -- pageA # 与containers对应</span><br><span class="line">        | -- action-type.js</span><br><span class="line">        | -- actionA.js</span><br><span class="line">        | -- actionB.js</span><br><span class="line">        | -- reducer.js</span><br><span class="line">    | -- pageB</span><br><span class="line">        | -- action-type.js</span><br><span class="line">        | -- actionA.js</span><br><span class="line">        | -- actionB.js</span><br><span class="line">        | -- reducer.js</span><br><span class="line">| -- router # 项目一级路由</span><br><span class="line">| -- utils # 项目工具函数</span><br><span class="line">| -- containers</span><br><span class="line">        | -- pageA</span><br><span class="line">             | -- components # 展示组件</span><br><span class="line">                     | -- A1</span><br><span class="line">                           | -- index.js</span><br><span class="line">                           | -- index.less</span><br><span class="line">             | -- index.js</span><br><span class="line">             | -- index.less</span><br><span class="line">             | -- Xcontainer.js # 容器组件</span><br><span class="line">             | -- Ycontainer.js</span><br><span class="line">        | -- pageB</span><br><span class="line">             | -- components # 展示组件</span><br><span class="line">                     | -- A1</span><br><span class="line">                           | -- index.js</span><br><span class="line">                           | -- index.less</span><br><span class="line">             | -- index.js</span><br><span class="line">             | -- index.less</span><br><span class="line">             | -- Xcontainer.js # 容器组件</span><br><span class="line">             | -- Ycontainer.js</span><br><span class="line">| -- index.js # 入口文件</span><br><span class="line">| -- index.less</span><br></pre></td></tr></table></figure>
+<p>目前开发保证几个原则：</p>
+<ol>
+<li>页面开发。目前项目页面并不算多，仅有接近二十个页面。在<code>containers</code>文件夹中前期区分好容器组件及展示组件。当写到一定程度，拆分出项目的公共组件，放入<code>components</code>文件夹中。</li>
+<li>状态管理。在<code>Redux</code>文件夹中，直接对应了每个<code>container</code>。在<code>store.js</code>中使用<code>combineReducers</code>整合所有页面的<code>reducer</code>。其后每个页面引用其的<code>action</code>就可以了，对于所有的数据处理，全在<code>action.js</code>中进行。</li>
+<li>路由管理。由于使用的为<code>React Router 4</code>，其不推荐集中路由，组件在哪里匹配就在哪里渲染。因此只定义了一个项目一级路由。</li>
+</ol>
+<p>然而由于前期未对项目的复杂度进行合理估计。这套目录结构随着业务发展，已经渐渐有些不够合理。后期项目对于目录结构需要进行重构，不以功能划分，需混合，以业务划分。</p>
+<p>建立<code>modules</code>目录，按照业务指定其的<code>container</code>，<code>component</code>，<code>router</code>，<code>service</code>等。且遵从就近依赖，将<code>action</code>，<code>reducer</code>置于对应的<code>container</code>中。</p>
+<h4 id="路由模式"><a href="#路由模式" class="headerlink" title="路由模式"></a>路由模式</h4><p>页面为单页面应用，因此所有路由是由前端控制。路由使用的是<code>React Router</code>，有两种路由可以选择：<code>hashHistory</code>以及<code>browserHistory</code>。</p>
+<p><code>hashHistory</code>是根据<code>#</code>后的路径进行处理，而<code>browserHistory</code>则是我们同常情况下的页面访问路径。如使用<code>hashHistory</code>，路径为<code>www.abc.com/#/helloWorld</code>，<code>browserHistory</code>为<code>www.abc.com/helloWorld</code>。</p>
+<p>一般下，两种模式都可以，但是由于个人十分介意多了个<code>#</code>符号，因此选用<code>browserHistory</code>。使用<code>browserHistory</code>需要后端进行配合，因为如果后台没有进行正确配置，如果直接访问<code>www.abc.com/helloWorld</code>会像后台发起请求，返回404。</p>
+<p>配置例子在<a href="https://router.vuejs.org/zh/" target="_blank" rel="noopener">Vue Router</a>中有几个例子。而该项目，后台在开发环境下使用<code>Tomcat</code>，需要修改<code>web.xml</code>文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">&lt;error-page&gt;</span><br><span class="line">    &lt;error-code&gt;404&lt;/error-code&gt;</span><br><span class="line">    &lt;location&gt;/index.html&lt;/location&gt;</span><br><span class="line">&lt;/error-page&gt;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h4 id="代码分割"><a href="#代码分割" class="headerlink" title="代码分割"></a>代码分割</h4><p>代码分割是<code>webpack</code>最引人注目的功能之一，它可以让我们实现代码的按需加载。其最多的使用情况是基于路由的分割。使用<code>import()</code>语法可实现动态加载js，实现代码按需加载。<code>import()</code>返回的为<code>Promise</code>，我们定义一个高阶组件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">asyncComponent</span>(<span class="params">importComponent</span>) </span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">AsyncComponent</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">        <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">            <span class="keyword">super</span>(props);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.state = &#123;</span><br><span class="line">                component: <span class="literal">null</span></span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">async</span> componentDidMount() &#123;</span><br><span class="line">            <span class="keyword">const</span> &#123; <span class="attr">default</span>: component &#125; = <span class="keyword">await</span> importComponent(); <span class="comment">// 当引入组件时才动态加载js</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.setState(&#123;component&#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        render() &#123;</span><br><span class="line">            <span class="keyword">const</span> C = <span class="keyword">this</span>.state.component;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> C ? &lt;C &#123;...this.props&#125; /&gt; : null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return AsyncComponent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现按需加载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const Hello = asyncComponent(() =&gt; import(&apos;../Hello&apos;));</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">	&lt;Switch&gt;</span><br><span class="line">		&lt;Route path=&quot;/hello&quot; component=&#123;Hello&#125; /&gt;</span><br><span class="line">		...</span><br><span class="line">	&lt;/Switch&gt;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>当访问<code>/hello</code>时，打开<code>network</code>，可看到动态加载了一个<code>javascript</code>文件。若对其原理感兴趣，可看<a href="https://segmentfault.com/a/1190000011435407" target="_blank" rel="noopener">这篇文章</a>，其最根本的原理就是动态添加<code>script</code>标签。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/09/数据分析平台-实践系列二/" rel="next" title="数据分析平台-实践系列二">
+                <i class="fa fa-chevron-left"></i> 数据分析平台-实践系列二
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">DYS</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/DYS1230" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:dys_jingdai@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据分析平台-前端实践-三"><span class="nav-number">1.</span> <span class="nav-text">数据分析平台-前端实践(三)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#目录结构"><span class="nav-number">1.1.</span> <span class="nav-text">目录结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#路由模式"><span class="nav-number">1.2.</span> <span class="nav-text">路由模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码分割"><span class="nav-number">1.3.</span> <span class="nav-text">代码分割</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DYS</span>
+
+  
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
